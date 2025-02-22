@@ -71,7 +71,7 @@ if "Group" in df.columns:
     else:
         highest_in_group, lowest_in_group, num_scholarship_group = "None", "None", 0
 else:
-    print("❌ Column 'Group' not found! Check the data format.")
+    print("Column 'Group' not found! Check the data format.")
     highest_in_group, lowest_in_group, num_scholarship_group = "None", "None", 0
 
 # Display results
