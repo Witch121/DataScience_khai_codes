@@ -16,7 +16,7 @@ def grade_scale(score):
     return "Error"
 
 # data loading
-FILE_PATH = "LW3.xlsx"
+FILE_PATH = "LW3_english.xlsx"
 df = pd.read_excel(FILE_PATH)
 df.columns = df.columns.str.strip()
 numeric_cols = df.select_dtypes(include=['number']).columns
@@ -45,7 +45,7 @@ def search_group(group):
 
 def students_with_scholarship():
     scholars = df[df["Scholarship"] == "*"]["Name"]
-    print("СStudents with scholarship:")
+    print("Students with scholarship:")
     print(scholars.to_string(index=False))
 
 def plot_group_performance(group):

@@ -18,20 +18,19 @@ def grade_scale(score):
     return "Error"
 
 # Step 1: Load the data
-FILE_PATH = "LW3.xlsx"
+FILE_PATH = "LW3_english.xlsx"
 df = pd.read_excel(FILE_PATH)
 
 # Step 2: Ensure correct column names
 df.columns = df.columns.str.strip()  # Removes leading/trailing spaces
 
 # Step 3: Convert only grade columns to numeric, preserving text columns
-numeric_cols = df.select_dtypes(include=['number']).columns
-for col in numeric_cols:
+grade_cols = [col for col in df.columns if "points" in col.lower() or "grade" in col.lower()]
+for col in grade_cols:
     df[col] = pd.to_numeric(df[col], errors="coerce")  # Ensures numeric data
 
-# Check for missing values and handle them
-# print(df.isna().sum())  # Debugging step
-df[numeric_cols] = df[numeric_cols].fillna(60)
+# Check for missing values and fill only numeric columns
+df[grade_cols] = df[grade_cols].fillna(60)
 
 # Step 4: Remove duplicates based on 'Name'
 if "Name" not in df.columns:
@@ -41,11 +40,11 @@ else:
     print("Duplicates removed successfully!")
 
 # Step 5: Assign grades based on the national grading scale
-for col in numeric_cols:
+for col in grade_cols:
     df[f"{col}_grade"] = df[col].apply(grade_scale)
 
 # Step 6: Compute Average Score
-df["Average grade"] = df[numeric_cols].mean(axis=1)
+df["Average grade"] = df[grade_cols].mean(axis=1)
 
 # Step 7: Scholarship Ranking
 # Select top 60% students by average score
