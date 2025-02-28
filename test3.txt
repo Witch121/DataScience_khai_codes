@@ -1,0 +1,6 @@
+from flask import Flask, request
+app = Flask(__name__)
+@app.route("/")
+def home():
+    user_input = request.args.get("name")
+    return f"Hello {user_input}"
